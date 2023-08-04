@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom'
+
 const ContactList = () => {
 	return (
 		<div className='relative overflow-x-auto mt-8 container mx-auto'>
@@ -20,28 +22,14 @@ const ContactList = () => {
 				</thead>
 				<tbody>
 					<tr className='bg-white border-b border-neutral-500 text-base'>
-						<td className='whitespace-nowrap px-6 py-4'>
-							Mark lucas
-						</td>
-						<td className='whitespace-nowrap px-6 py-4'>
-							Mark@mail.com
-						</td>
-						<td className='whitespace-nowrap px-6 py-4'>
-							7894561230
-						</td>
+						<td className='whitespace-nowrap px-6 py-4'>Mark lucas</td>
+						<td className='whitespace-nowrap px-6 py-4'>Mark@mail.com</td>
+						<td className='whitespace-nowrap px-6 py-4'>7894561230</td>
 						<td className='whitespace-nowrap px-6'>
-							<a
-								href='#'
-								className='font-medium text-blue-600  hover:underline mr-6 '
-							>
+							<NavLink to={`/${1}/edit`} className='font-medium text-blue-600  hover:underline mr-6 '>
 								Edit
-							</a>
-							<a
-								href='#'
-								className='font-medium text-red-600  hover:underline mr-6 '
-							>
-								Delete
-							</a>
+							</NavLink>
+							<span className='font-medium text-red-600  hover:underline mr-6 '>Delete</span>
 						</td>
 					</tr>
 				</tbody>
