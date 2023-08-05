@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import ContactForm from '../components/ContactForm'
 
 const EditContact = () => {
 	return (
@@ -8,6 +9,7 @@ const EditContact = () => {
 					Back
 				</button>
 			</NavLink>
+			<ContactForm />
 		</div>
 	)
 }

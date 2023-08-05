@@ -26,6 +26,9 @@ const ContactList = () => {
 						<td className='whitespace-nowrap px-6 py-4'>Mark@mail.com</td>
 						<td className='whitespace-nowrap px-6 py-4'>7894561230</td>
 						<td className='whitespace-nowrap px-6'>
+							<NavLink to={`/${1}/view`} className='font-medium text-blue-600  hover:underline mr-6 '>
+								Details
+							</NavLink>
 							<NavLink to={`/${1}/edit`} className='font-medium text-blue-600  hover:underline mr-6 '>
 								Edit
 							</NavLink>
