@@ -29,20 +29,20 @@ const EditContact = () => {
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault()
 		axios
-			.put(`https://jsonplaceholder.typicode.com/users/${id}`, contact)
-			.then((res) => {
+			.put(`http://localhost:8000/contacts/${id}`, contact)
+			.then(res => {
 				console.log(res.status)
 				navigate('/')
 			})
-			.catch((err) => console.log(err))
+			.catch(err => console.log(err))
 		console.log(contact)
 	}
 
 	useEffect(() => {
 		setLoading(true)
 		axios
-			.get(`https://jsonplaceholder.typicode.com/users/${id}`)
-			.then((res) => {
+			.get(`http://localhost:8000/contacts/${id}`)
+			.then(res => {
 				const contact: contacts = {
 					id: res.data.id,
 					name: res.data.name,
@@ -54,7 +54,7 @@ const EditContact = () => {
 				console.log(contact)
 				setLoading(false)
 			})
-			.catch((error) => {
+			.catch(error => {
 				console.log(error)
 				setLoading(false)
 			})

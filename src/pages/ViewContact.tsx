@@ -17,19 +17,19 @@ const ViewContact = () => {
 
 	const handleContactDelete = (id: string) => {
 		axios
-			.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-			.then((res) => {
+			.delete(`http://localhost:8000/contacts/${id}`)
+			.then(res => {
 				console.log(res.status)
 				navigate('/')
 			})
-			.catch((err) => console.log(err))
+			.catch(err => console.log(err))
 	}
 
 	useEffect(() => {
 		setLoading(true)
 		if (id) {
 			axios
-				.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+				.get(`http://localhost:8000/contacts/${id}`)
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				.then((res: any) => {
 					const contact = {
@@ -42,7 +42,7 @@ const ViewContact = () => {
 					console.log(contact)
 					setLoading(false)
 				})
-				.catch((error) => {
+				.catch(error => {
 					console.log(error)
 					setLoading(false)
 				})

@@ -26,8 +26,8 @@ const AddContact = () => {
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
 		e.preventDefault()
 		axios
-			.post(`https://jsonplaceholder.typicode.com/users`, contact)
-			.then((res) => {
+			.post(`http://localhost:8000/contacts`, contact)
+			.then(res => {
 				console.log(res.status)
 				setContact({
 					id: Math.floor(Math.random() * 1000000000000).toString(),
@@ -37,7 +37,7 @@ const AddContact = () => {
 				})
 				navigate('/')
 			})
-			.catch((err) => console.log(err))
+			.catch(err => console.log(err))
 		console.log(contact)
 	}
 

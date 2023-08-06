@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import Loader from './Loader'
 
 export interface contacts {
@@ -11,25 +11,23 @@ export interface contacts {
 }
 
 const ContactList = () => {
-	const navigate = useNavigate()
 	const [contacts, setContacts] = useState<contacts[]>([])
 	const [loading, setLoading] = useState<boolean>(false)
 
 	const handleContactDelete = (id: string) => {
 		axios
-			.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
-			.then((res) => {
+			.delete(`http://localhost:8000/contacts/${id}`)
+			.then(res => {
 				console.log(res.status)
-				navigate('/')
+				getContactList()
 			})
-			.catch((err) => console.log(err))
+			.catch(err => console.log(err))
 	}
 
-	useEffect(() => {
-		setLoading(true)
+	const getContactList = (): void => {
 		axios
-			.get('https://jsonplaceholder.typicode.com/users')
-			.then((res) => {
+			.get('http://localhost:8000/contacts')
+			.then(res => {
 				const contactList: contacts[] = []
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				res.data.map((r: any) => {
@@ -44,10 +42,15 @@ const ContactList = () => {
 				console.log(contactList)
 				setLoading(false)
 			})
-			.catch((error) => {
+			.catch(error => {
 				console.log(error)
 				setLoading(false)
 			})
+	}
+
+	useEffect(() => {
+		setLoading(true)
+		getContactList()
 	}, [])
 
 	if (loading) {
@@ -74,21 +77,12 @@ const ContactList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					{contacts.map((contact) => {
+					{contacts.map(contact => {
 						return (
-							<tr
-								className='bg-white border-b border-neutral-500 text-base'
-								key={contact.id}
-							>
-								<td className='whitespace-nowrap px-6 py-4'>
-									{contact.name}
-								</td>
-								<td className='whitespace-nowrap px-6 py-4'>
-									{contact.email}
-								</td>
-								<td className='whitespace-nowrap px-6 py-4'>
-									{contact.phone}
-								</td>
+							<tr className='bg-white border-b border-neutral-500 text-base' key={contact.id}>
+								<td className='whitespace-nowrap px-6 py-4'>{contact.name}</td>
+								<td className='whitespace-nowrap px-6 py-4'>{contact.email}</td>
+								<td className='whitespace-nowrap px-6 py-4'>{contact.phone}</td>
 								<td className='whitespace-nowrap px-6'>
 									<NavLink
 										to={`/${contact.id}/view`}
@@ -103,9 +97,7 @@ const ContactList = () => {
 										Edit
 									</NavLink>
 									<a
-										onClick={() =>
-											handleContactDelete(contact.id)
-										}
+										onClick={() => handleContactDelete(contact.id)}
 										className='font-medium text-red-600  hover:underline mr-6 '
 									>
 										Delete
