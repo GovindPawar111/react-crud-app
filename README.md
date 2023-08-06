@@ -1,3 +1,5 @@
-# Contact List app
+# Simple React project with CRUD functionality.
 
-React application with crud functionality.
+To start the Project locally you have to run the command `npm run dev`. which will start the project on localhost.
+
+It used JSON server as backend to start the server you have to run the command npm run serve `npm run serve`.
