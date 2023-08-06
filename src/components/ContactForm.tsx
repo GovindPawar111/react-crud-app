@@ -8,7 +8,10 @@ const ContactForm = () => {
 		>
 			<div className='w-1/2 my-6 '>
 				<div>
-					<label htmlFor='name' className='block text-sm font-medium leading-6 text-gray-900'>
+					<label
+						htmlFor='name'
+						className='block text-sm font-medium leading-6 text-gray-900'
+					>
 						Name
 					</label>
 					<div className='mt-2'>
@@ -23,7 +26,10 @@ const ContactForm = () => {
 					</div>
 				</div>
 				<div>
-					<label htmlFor='email' className='block text-sm font-medium leading-6 text-gray-900'>
+					<label
+						htmlFor='email'
+						className='block text-sm font-medium leading-6 text-gray-900'
+					>
 						Email address
 					</label>
 					<div className='mt-2'>
@@ -38,7 +44,10 @@ const ContactForm = () => {
 					</div>
 				</div>
 				<div>
-					<label htmlFor='number' className='block text-sm font-medium leading-6 text-gray-900'>
+					<label
+						htmlFor='number'
+						className='block text-sm font-medium leading-6 text-gray-900'
+					>
 						Number
 					</label>
 					<div className='mt-2'>

@@ -1,6 +1,59 @@
-import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Loader from './Loader'
+
+export interface contacts {
+	id: string
+	name: string
+	email: string
+	phone: string
+}
 
 const ContactList = () => {
+	const navigate = useNavigate()
+	const [contacts, setContacts] = useState<contacts[]>([])
+	const [loading, setLoading] = useState<boolean>(false)
+
+	const handleContactDelete = (id: string) => {
+		axios
+			.delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+			.then((res) => {
+				console.log(res.status)
+				navigate('/')
+			})
+			.catch((err) => console.log(err))
+	}
+
+	useEffect(() => {
+		setLoading(true)
+		axios
+			.get('https://jsonplaceholder.typicode.com/users')
+			.then((res) => {
+				const contactList: contacts[] = []
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				res.data.map((r: any) => {
+					contactList.push({
+						id: r.id,
+						name: r.name,
+						email: r.email,
+						phone: r.phone,
+					})
+				})
+				setContacts(contactList)
+				console.log(contactList)
+				setLoading(false)
+			})
+			.catch((error) => {
+				console.log(error)
+				setLoading(false)
+			})
+	}, [])
+
+	if (loading) {
+		return <Loader />
+	}
+
 	return (
 		<div className='relative overflow-x-auto mt-8 container mx-auto'>
 			<table className='w-full text-sm text-left text-gray-500'>
@@ -21,20 +74,46 @@ const ContactList = () => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr className='bg-white border-b border-neutral-500 text-base'>
-						<td className='whitespace-nowrap px-6 py-4'>Mark lucas</td>
-						<td className='whitespace-nowrap px-6 py-4'>Mark@mail.com</td>
-						<td className='whitespace-nowrap px-6 py-4'>7894561230</td>
-						<td className='whitespace-nowrap px-6'>
-							<NavLink to={`/${1}/view`} className='font-medium text-blue-600  hover:underline mr-6 '>
-								Details
-							</NavLink>
-							<NavLink to={`/${1}/edit`} className='font-medium text-blue-600  hover:underline mr-6 '>
-								Edit
-							</NavLink>
-							<span className='font-medium text-red-600  hover:underline mr-6 '>Delete</span>
-						</td>
-					</tr>
+					{contacts.map((contact) => {
+						return (
+							<tr
+								className='bg-white border-b border-neutral-500 text-base'
+								key={contact.id}
+							>
+								<td className='whitespace-nowrap px-6 py-4'>
+									{contact.name}
+								</td>
+								<td className='whitespace-nowrap px-6 py-4'>
+									{contact.email}
+								</td>
+								<td className='whitespace-nowrap px-6 py-4'>
+									{contact.phone}
+								</td>
+								<td className='whitespace-nowrap px-6'>
+									<NavLink
+										to={`/${contact.id}/view`}
+										className='font-medium text-blue-600  hover:underline mr-6 '
+									>
+										Details
+									</NavLink>
+									<NavLink
+										to={`/${contact.id}/edit`}
+										className='font-medium text-blue-600  hover:underline mr-6 '
+									>
+										Edit
+									</NavLink>
+									<a
+										onClick={() =>
+											handleContactDelete(contact.id)
+										}
+										className='font-medium text-red-600  hover:underline mr-6 '
+									>
+										Delete
+									</a>
+								</td>
+							</tr>
+						)
+					})}
 				</tbody>
 			</table>
 		</div>
